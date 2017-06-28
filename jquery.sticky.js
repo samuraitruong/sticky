@@ -40,8 +40,7 @@
         $document = $(document),
         sticked = [],
         windowHeight = $window.height(),
-        scroller = throttle(function() {
-            console.log('hi')
+        scroller = debounce(function() {
             var scrollTop = $window.scrollTop(),
                 documentHeight = $document.height(),
                 dwh = documentHeight - windowHeight,
@@ -133,7 +132,7 @@
                 }
             }
         },200),
-        resizer = throttle(function() {
+        resizer = debounce(function() {
             windowHeight = $window.height();
 
             for (var i = 0, l = sticked.length; i < l; i++) {
@@ -282,9 +281,7 @@
             $.error('Method ' + method + ' does not exist on jQuery.sticky');
         }
     };
-
-
-    //@todo Remove debounce in future release
+    
     function debounce(func, wait, immediate) {
         var timeout;
         return function() {
@@ -299,7 +296,7 @@
             if (callNow) func.apply(context, args);
         };
     };
-
+   
     function throttle (callback, limit) {
         var wait = false;                  // Initially, we're not waiting
         return function () {               // We return a throttled function
